@@ -12,15 +12,22 @@ var AuthService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
+const jwt_1 = require("@nestjs/jwt");
 const cqrs_1 = require("@nestjs/cqrs");
 const get_user_by_email_1 = require("../user/application/queries/get-user-by-email");
 let AuthService = exports.AuthService = AuthService_1 = class AuthService {
-    constructor(queryBus) {
+    constructor(queryBus, jwtService) {
         Object.defineProperty(this, "queryBus", {
             enumerable: true,
             configurable: true,
             writable: true,
             value: queryBus
+        });
+        Object.defineProperty(this, "jwtService", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: jwtService
         });
         Object.defineProperty(this, "logger", {
             enumerable: true,
@@ -35,13 +42,23 @@ let AuthService = exports.AuthService = AuthService_1 = class AuthService {
             return !!user;
         }
         catch (e) {
-            this.logger.error(`Access error with email ${email}: ${e.message}`);
+            const errorMessage = e instanceof Error ? e.message : 'Unknown error';
+            this.logger.error(`Access error with email ${email}: ${errorMessage}`);
             return false;
         }
+    }
+    generateJwtToken(user) {
+        const payload = {
+            email: user.email,
+            sub: user.id || user._id,
+            name: user.name || user.displayName
+        };
+        return this.jwtService.sign(payload);
     }
 };
 exports.AuthService = AuthService = AuthService_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [cqrs_1.QueryBus])
+    __metadata("design:paramtypes", [cqrs_1.QueryBus,
+        jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=service.js.map

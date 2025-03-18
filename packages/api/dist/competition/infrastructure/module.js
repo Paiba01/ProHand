@@ -17,7 +17,6 @@ const providers_1 = require("./providers");
 const competitions_1 = require("./controllers/competitions");
 const create_competition_1 = require("../application/commands/handlers/create-competition");
 const schema_1 = require("./models/mongoose/schema");
-const schema_2 = require("../../match/infrastructure/models/mongoose/schema");
 const get_competition_1 = require("../application/queries/handlers/get-competition");
 const get_competitions_1 = require("../application/queries/handlers/get-competitions");
 const delete_competition_1 = require("../application/commands/handlers/delete-competition");
@@ -41,11 +40,7 @@ exports.CompetitionModule = CompetitionModule = __decorate([
                 {
                     name: schema_1.CompetitionSchema.name,
                     schema: mongoose_1.SchemaFactory.createForClass(schema_1.CompetitionSchema),
-                },
-                {
-                    name: schema_2.MatchSchema.name,
-                    schema: mongoose_1.SchemaFactory.createForClass(schema_2.MatchSchema),
-                },
+                }
             ]),
         ],
         providers: [...commandHandlers, ...queryHandlers, ...providers_1.competitionProviders],

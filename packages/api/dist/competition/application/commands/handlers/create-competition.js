@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCompetitionHandler = void 0;
 const cqrs_1 = require("@nestjs/cqrs");
@@ -22,11 +23,6 @@ const id_1 = require("../../../domain/models/id");
 const name_1 = require("../../../domain/models/name");
 const category_1 = require("../../../domain/models/category");
 const competition_1 = require("../../../domain/models/competition");
-const matchs_1 = require("../../../../match/domain/services/matchs");
-const match_1 = require("../../../../match/domain/models/match");
-const uuid_1 = require("../../../../shared/uuid");
-const id_2 = require("../../../../match/domain/models/id");
-const team_1 = require("../../../../match/domain/models/team");
 let CreateCompetitionHandler = exports.CreateCompetitionHandler = class CreateCompetitionHandler {
     constructor(competitions, matchs) {
         Object.defineProperty(this, "competitions", {
@@ -54,25 +50,6 @@ let CreateCompetitionHandler = exports.CreateCompetitionHandler = class CreateCo
             return (0, neverthrow_1.err)(category.error);
         for (let i = 0; i < command.teams.length; i++) {
             for (let j = i + 1; j < command.teams.length; j++) {
-                const id = uuid_1.default.generate();
-                const matchId = id_2.MatchId.fromString(id);
-                if (matchId.isErr())
-                    break;
-                const local = team_1.Team.fromString(command.teams[i]);
-                if (local.isErr())
-                    break;
-                const visitor = team_1.Team.fromString(command.teams[j]);
-                if (visitor.isErr())
-                    break;
-                const matchDay = this.getRandomWeekendDate(new Date(command.dateFrom), new Date(command.dateTo));
-                const match = match_1.default.create({
-                    id: matchId.value,
-                    competitionId: competitionId.value,
-                    local: local.value,
-                    visitor: visitor.value,
-                    day: matchDay
-                });
-                await this.matchs.create(match);
             }
         }
         const competition = competition_1.Competition.create({
@@ -98,7 +75,7 @@ let CreateCompetitionHandler = exports.CreateCompetitionHandler = class CreateCo
 exports.CreateCompetitionHandler = CreateCompetitionHandler = __decorate([
     (0, cqrs_1.CommandHandler)(create_competition_1.CreateCompetition),
     __param(0, (0, common_1.Inject)(competitions_1.default)),
-    __param(1, (0, common_1.Inject)(matchs_1.default)),
-    __metadata("design:paramtypes", [Object, Object])
+    __param(1, (0, common_1.Inject)(Matchs)),
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof Matchs !== "undefined" && Matchs) === "function" ? _a : Object])
 ], CreateCompetitionHandler);
 //# sourceMappingURL=create-competition.js.map

@@ -1,29 +1,30 @@
-import { DynamicModule, Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { CqrsModule } from '@nestjs/cqrs'
+import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { CqrsModule } from '@nestjs/cqrs';
+import { JwtModule } from '@nestjs/jwt';
 
-import { AuthController } from './controller'
-import { JwtStrategy } from './jwt/strategy'
-import { AuthService } from './service'
+import { AuthController } from './controller';
+import { AuthService } from './service';
+import { GoogleStrategy } from './jwt/google.strategy';
+
 
 @Module({
-  controllers: [AuthController],
-  exports: [AuthService],
   imports: [
+    PassportModule.register({ defaultStrategy: 'google' }),
+    ConfigModule,
     CqrsModule,
-    registerAsync({
+    JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: () => ({
-        secret: 'secret',
-        signOptions: { expiresIn: '1d' },
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET') || 'tu-secreto-para-jwt',
+        signOptions: { expiresIn: '1h' },
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy],
+  controllers: [AuthController],
+  providers: [AuthService, GoogleStrategy],
+  exports: [AuthService],
 })
 export class AuthModule {}
-
-function registerAsync(arg0: { imports: (typeof ConfigModule)[]; inject: (typeof ConfigService)[]; useFactory: () => { secret: string; signOptions: { expiresIn: string } } }): import("@nestjs/common").Type<any> | import("@nestjs/common").DynamicModule | Promise<import("@nestjs/common").DynamicModule> | import("@nestjs/common").ForwardReference<any> {
-    throw new Error('Function not implemented.')
-}

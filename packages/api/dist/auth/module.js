@@ -8,32 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
 const config_1 = require("@nestjs/config");
 const cqrs_1 = require("@nestjs/cqrs");
+const jwt_1 = require("@nestjs/jwt");
 const controller_1 = require("./controller");
-const strategy_1 = require("./jwt/strategy");
 const service_1 = require("./service");
+const google_strategy_1 = require("./jwt/google.strategy");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
-        controllers: [controller_1.AuthController],
-        exports: [service_1.AuthService],
         imports: [
+            passport_1.PassportModule.register({ defaultStrategy: 'google' }),
+            config_1.ConfigModule,
             cqrs_1.CqrsModule,
-            registerAsync({
+            jwt_1.JwtModule.registerAsync({
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
-                useFactory: () => ({
-                    secret: 'secret',
-                    signOptions: { expiresIn: '1d' },
+                useFactory: (configService) => ({
+                    secret: configService.get('JWT_SECRET') || 'tu-secreto-para-jwt',
+                    signOptions: { expiresIn: '1h' },
                 }),
             }),
         ],
-        providers: [service_1.AuthService, strategy_1.JwtStrategy],
+        controllers: [controller_1.AuthController],
+        providers: [service_1.AuthService, google_strategy_1.GoogleStrategy],
+        exports: [service_1.AuthService],
     })
 ], AuthModule);
-function registerAsync(arg0) {
-    throw new Error('Function not implemented.');
-}
 //# sourceMappingURL=module.js.map

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const passport_1 = require("@nestjs/passport");
 const service_1 = require("./service");
 let AuthController = exports.AuthController = class AuthController {
     constructor(authService) {
@@ -31,18 +32,42 @@ let AuthController = exports.AuthController = class AuthController {
         if (!isValid) {
             throw new common_1.UnauthorizedException();
         }
+        return { message: 'Login successful' };
+    }
+    googleAuth() {
+    }
+    googleAuthCallback(req, res) {
+        const user = req.user;
+        const token = this.authService.generateJwtToken(user);
+        res.redirect(`http://tu-frontend-url/#/auth-callback?token=${token}`);
     }
 };
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
+__decorate([
+    (0, common_1.Get)('google'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "googleAuth", null);
+__decorate([
+    (0, common_1.Get)('google/callback'),
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('google')),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "googleAuthCallback", null);
 exports.AuthController = AuthController = __decorate([
     (0, swagger_1.ApiTags)('auth'),
-    (0, common_1.Controller)('login'),
+    (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [service_1.AuthService])
 ], AuthController);
 //# sourceMappingURL=controller.js.map

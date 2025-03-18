@@ -13,8 +13,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const nestjs_console_1 = require("nestjs-console");
 const logger_1 = require("./middleware/logger");
 const module_1 = require("./user/infrastructure/module");
-const module_2 = require("./match/infrastructure/module");
-const module_3 = require("./competition/infrastructure/module");
+const module_2 = require("./auth/module");
 let AppModule = exports.AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_1.default).forRoutes('*');
@@ -35,8 +34,7 @@ exports.AppModule = AppModule = __decorate([
             nestjs_console_1.ConsoleModule,
             mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI || '', {}),
             module_1.UserModule,
-            module_2.MatchModule,
-            module_3.CompetitionModule,
+            module_2.AuthModule,
         ],
     })
 ], AppModule);
