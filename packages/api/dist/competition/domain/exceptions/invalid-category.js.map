@@ -1,0 +1,1 @@
+{"version":3,"file":"invalid-category.js","sourceRoot":"","sources":["../../../../competition/domain/exceptions/invalid-category.ts"],"names":[],"mappings":";;;AAAA,mDAA2C;AAE3C,MAAa,eAAgB,SAAQ,kBAAS;IAC5C,MAAM,CAAC,YAAY;QACjB,OAAO,kBAAS,CAAC,IAAI,CAAC,yCAAyC,CAAC,CAAA;IAClE,CAAC;IAED,MAAM,CAAC,oBAAoB;QACzB,OAAO,kBAAS,CAAC,IAAI,CAAC,+BAA+B,CAAC,CAAA;IACxD,CAAC;CACF;AARD,0CAQC"}

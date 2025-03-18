@@ -1,0 +1,1 @@
+{"version":3,"file":"get-scope.js","sourceRoot":"","sources":["../../../../scope/application/queries/get-scope.ts"],"names":[],"mappings":";;AAEA,MAAM,QAAQ;IACZ,YAA6B,EAAsB;QAA/B;;;;mBAAS,EAAE;WAAoB;IAAG,CAAC;IAEvD,MAAM,CAAC,IAAI,CAAC,EAAE,EAAE,EAAgB;QAC9B,OAAO,IAAI,IAAI,CAAC,EAAE,CAAC,CAAA;IACrB,CAAC;CACF;AAED,kBAAe,QAAQ,CAAA"}

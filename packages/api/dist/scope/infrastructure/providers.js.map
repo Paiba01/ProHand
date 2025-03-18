@@ -1,0 +1,1 @@
+{"version":3,"file":"providers.js","sourceRoot":"","sources":["../../../scope/infrastructure/providers.ts"],"names":[],"mappings":";;AAAA,2DAAyD;AACzD,sDAA8C;AAC9C,gEAA6D;AAC7D,gEAAuD;AAEvD,MAAM,cAAc,GAAG;IACrB;QACE,OAAO,EAAE,gBAAM;QACf,QAAQ,EAAE,yBAAc;KACzB;IACD;QACE,OAAO,EAAE,gBAAY;QACrB,QAAQ,EAAE,yBAAoB;KAC/B;CACF,CAAA;AAED,kBAAe,cAAc,CAAA"}

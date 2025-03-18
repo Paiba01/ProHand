@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-scope.js","sourceRoot":"","sources":["../../../../scope/application/commands/delete-scope.ts"],"names":[],"mappings":";;AAEA,MAAM,WAAW;IACf,YAA6B,EAAyB;QAAlC;;;;mBAAS,EAAE;WAAuB;IAAG,CAAC;IAE1D,MAAM,CAAC,IAAI,CAAC,EAAE,EAAE,EAAmB;QACjC,OAAO,IAAI,IAAI,CAAC,EAAE,CAAC,CAAA;IACrB,CAAC;CACF;AAED,kBAAe,WAAW,CAAA"}

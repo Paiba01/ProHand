@@ -1,0 +1,1 @@
+{"version":3,"file":"description.js","sourceRoot":"","sources":["../../../../scope/domain/models/description.ts"],"names":[],"mappings":";;AAAA,mDAA6C;AAE7C,MAAM,gBAAiB,SAAQ,oBAAmB;IAChD,YAAoB,KAAa;QAC/B,KAAK,CAAC,KAAK,CAAC,CAAA;IACd,CAAC;IAED,MAAM,CAAC,UAAU,CAAC,KAAa;QAC7B,OAAO,IAAI,IAAI,CAAC,KAAK,CAAC,CAAA;IACxB,CAAC;CACF;AAED,kBAAe,gBAAgB,CAAA"}

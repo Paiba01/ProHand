@@ -1,0 +1,1 @@
+{"version":3,"file":"get-matchs-by-competition.js","sourceRoot":"","sources":["../../../../match/application/queries/get-matchs-by-competition.ts"],"names":[],"mappings":";;;AAEA,MAAa,sBAAsB;IACjC,YAA6B,aAA0D;QAAnE;;;;mBAAS,aAAa;WAA6C;IAAG,CAAC;IAE3F,MAAM,CAAC,IAAI,CAAC,EAAE,aAAa,EAA8B;QACvD,OAAO,IAAI,IAAI,CAAC,aAAa,CAAC,CAAA;IAChC,CAAC;CACF;AAND,wDAMC"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-match.js","sourceRoot":"","sources":["../../../../match/application/commands/delete-match.ts"],"names":[],"mappings":";;;AAEA,MAAa,WAAW;IACtB,YAA6B,EAAyB;QAAlC;;;;mBAAS,EAAE;WAAuB;IAAG,CAAC;IAE1D,MAAM,CAAC,IAAI,CAAC,EAAE,EAAE,EAAmB;QACjC,OAAO,IAAI,IAAI,CAAC,EAAE,CAAC,CAAA;IACrB,CAAC;CACF;AAND,kCAMC"}
