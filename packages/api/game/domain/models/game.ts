@@ -1,10 +1,11 @@
 import { AggregateRoot } from '@nestjs/cqrs'
 import GameId from './id'
 import Club from '~/club/domain/models/club'
-import Player from '~/player/domain/models/player'
+
 import GameConfig from './gameConfig'
 import GameFinishedEvent from '../events/GameFinishedEvent'
 import PlayerJoinedGameEvent from '../events/PlayerJoinedGameEvent'
+import Player from '~/player/domain/models/player'
 
 
 class Game extends AggregateRoot {
