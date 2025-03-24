@@ -1,9 +1,7 @@
 import PlayerId from './id'
 import User from '~/user/domain/models/user'
 import Game from '~/game/domain/models/game'
-import Athlete from '~/athlete/domain/models/athlete'
 import AthleteId from '~/athlete/domain/models/id'
-
 
 class Player {
   private _id: PlayerId
@@ -11,7 +9,7 @@ class Player {
   private _game: Game
   private _ranking: number
   private _cash: number
-  private _athletes: Athlete[]
+  private _athletesIds: AthleteId[]
 
   private static readonly MAX_ATHLETES = 16
 
@@ -21,7 +19,7 @@ class Player {
     this._game = game
     this._ranking = 0
     this._cash = cash
-    this._athletes = []
+    this._athletesIds = []
   }
 
   static create({ id, user, game, cash }: { id: PlayerId; user: User; game: Game; cash: number }) {
@@ -48,8 +46,8 @@ class Player {
     return this._cash
   }
 
-  get athletes(): Athlete[] {
-    return this._athletes
+  get athletesIds(): AthleteId[] {
+    return this._athletesIds
   }
 
   set ranking(position: number) {
@@ -68,15 +66,15 @@ class Player {
     this._cash -= amount
   }
 
-  addAthlete(athlete: Athlete) {
-    if (this._athletes.length >= Player.MAX_ATHLETES) {
+  addAthlete(athleteId: AthleteId) {
+    if (this._athletesIds.length >= Player.MAX_ATHLETES) {
       throw new Error(`Cannot add more than ${Player.MAX_ATHLETES} athletes`)
     }
-    this._athletes.push(athlete)
+    this._athletesIds.push(athleteId)
   }
 
   removeAthlete(athleteId: AthleteId) {
-    this._athletes = this._athletes.filter(athlete => athlete.id !== athleteId)
+    this._athletesIds = this._athletesIds.filter(id => id !== athleteId)
   }
 }
 
