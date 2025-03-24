@@ -45,8 +45,6 @@ export class EditUserHandler implements ICommandHandler {
             name: userName.value,
             email: userEmail.value,
             password: userPassword.value,
-            isActive: command.isActive,
-            isAdmin: command.isAdmin,
           })
 
         return ok(await this.users.edit(editedUser))
