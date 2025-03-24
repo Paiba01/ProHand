@@ -1,41 +1,42 @@
 import PlayerId from './id'
-import User from '~/user/domain/models/user'
 import Game from '~/game/domain/models/game'
 import AthleteId from '~/athlete/domain/models/id'
+import UserId from '~/user/domain/models/id'
+import GameId from '~/game/domain/models/id'
 
 class Player {
   private _id: PlayerId
-  private _user: User
-  private _game: Game
+  private _userId: UserId
+  private _gameId: GameId
   private _ranking: number
   private _cash: number
   private _athletesIds: AthleteId[]
 
   private static readonly MAX_ATHLETES = 16
 
-  private constructor(id: PlayerId, user: User, game: Game, cash: number) {
+  private constructor(id: PlayerId, userId: UserId, gameId: GameId, cash: number) {
     this._id = id
-    this._user = user
-    this._game = game
+    this._userId = userId
+    this._gameId = gameId
     this._ranking = 0
     this._cash = cash
     this._athletesIds = []
   }
 
-  static create({ id, user, game, cash }: { id: PlayerId; user: User; game: Game; cash: number }) {
-    return new this(id, user, game, cash)
+  static create({ id, userId, gameId, cash }: { id: PlayerId; userId: UserId; gameId: GameId; cash: number }) {
+    return new this(id, userId, gameId, cash)
   }
 
   get id(): PlayerId {
     return this._id
   }
 
-  get user(): User {
-    return this._user
+  get userId(): UserId {
+    return this._userId
   }
 
-  get game(): Game {
-    return this._game
+  get gameId(): GameId {
+    return this._gameId
   }
 
   get ranking(): number {
