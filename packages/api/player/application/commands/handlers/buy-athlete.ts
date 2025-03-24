@@ -3,15 +3,15 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { err, ok, Result } from "neverthrow";
 import { InvalidId } from "~/shared/domain";
 
-import { NotFoundAthlete } from "~/athlete/domain/exceptions/not-found";
 
-import Athletes from "~/athlete/domain/services/athletes";
 import PlayerId from "~/player/domain/models/id";
 import AthleteId from "~/athlete/domain/models/id";
 import { BuyAthlete } from "../buy-athlete";
 import Players from "~/player/domain/services/player";
 import { NotFoundPlayer } from "~/player/domain/exceptions/not-found";
 import { InsufficientCash } from "~/player/domain/exceptions/insufficient-cash";
+import Athletes from "~/athlete/domain/services/athlete";
+import { NotFoundAthlete } from "~/athlete/domain/exceptions/not-found";
 
 @CommandHandler(BuyAthlete)
 export class BuyAthleteHandler implements ICommandHandler {
