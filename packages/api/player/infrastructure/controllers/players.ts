@@ -1,55 +1,42 @@
 import {
-    BadRequestException,
-    Body,
-    Controller,
-    Get,
-    Param,
-    Post,
-    Put
-} from '@nestjs/common'
-import { CommandBus, QueryBus } from '@nestjs/cqrs'
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+} from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 import {
-    ApiBadRequestResponse,
-    ApiCreatedResponse,
-    ApiOkResponse,
-    ApiOperation,
-    ApiTags
-} from '@nestjs/swagger'
-import { CreateUser } from '~/user/application/commands/create-user'
-import { CreateUserHandler } from '~/user/application/commands/handlers/create-user'
-import { CreateUserDto } from '~/user/dto/request/create-user'
-import HttpError from '~/shared/http/error'
-  
-  @ApiTags('Players')
-  @Controller('players')
-  export class PlayersController {
-    constructor(
-      private readonly commandBus: CommandBus,
-      private readonly queryBus: QueryBus,
-    ) {}
-
-    @ApiOperation({ summary: 'Updates a player' })
-    @ApiCreatedResponse({
-      description: 'Player updated',
-    })
-    @ApiBadRequestResponse({ description: 'Invalid input' })
-    @Post()
-    async createUser(@Body() dto: CreateUserDto) {
-      const response: Awaited<ReturnType<CreateUserHandler['execute']>> =
-        await this.commandBus.execute(
-          CreateUser.with({
-            id: dto.id,
-            name: dto.name,
-            email: dto.email,
-            password: dto.password,
-          }),
-        )
-  
-      if (response.isErr())
-        throw new BadRequestException(HttpError.fromException(response.error))
-    } 
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
+import { BuyAthlete } from '~/player/application/commands/buy-athlete';
+import { BuyAthleteHandler } from '~/player/application/commands/handlers/buy-athlete';
+import { BuyAthleteDto } from '~/player/dto/request/buy-athlete';
+import HttpError from '~/shared/http/error';
 
 
+@ApiTags('Players')
+@Controller('players')
+export class PlayersController {
+  constructor(private readonly commandBus: CommandBus) {}
 
+  @ApiOperation({ summary: 'Buy an athlete for a player' })
+  @ApiCreatedResponse({ description: 'Athlete successfully purchased' })
+  @ApiBadRequestResponse({ description: 'Invalid input or insufficient cash' })
+  @Post('buy-athlete')
+  async buyAthlete(@Body() dto: BuyAthleteDto) {
+    const response: Awaited<ReturnType<BuyAthleteHandler['execute']>> =
+      await this.commandBus.execute(
+        BuyAthlete.with({
+          playerId: dto.playerId, 
+          athleteId: dto.athleteId,
+        }),
+      )
+
+      if (response.isErr()) {
+          throw new BadRequestException(HttpError.fromException(response.error));
+      }
+  }
 }
-  

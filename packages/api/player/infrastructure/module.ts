@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
 import { MongooseModule, SchemaFactory } from '@nestjs/mongoose'
 import { BuyAthleteHandler } from '~/player/application/commands/handlers/buy-athlete'
+import { PlayersController } from './controllers/players'
+import { PlayerSchema } from './models/mongoose/schema'
+import { playerProviders } from './providers'
 
 
 const controllers = [PlayersController]
@@ -21,7 +24,7 @@ const commandHandlers = [
       },
     ]),
   ],
-  providers: [...commandHandlers, ...userProviders],
+  providers: [...commandHandlers, ...playerProviders],
 })
 export class UserModule {
   constructor() {}
