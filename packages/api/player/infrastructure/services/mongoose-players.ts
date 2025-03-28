@@ -6,6 +6,9 @@ import { PlayerSchema } from '../models/mongoose/schema';
 import { err, ok, Result } from 'neverthrow';
 import { NotFoundPlayer } from '~/player/domain/exceptions/not-found';
 import PlayerId from '~/player/domain/models/id';
+import UserId from '~/user/domain/models/id';
+import GameId from '~/game/domain/models/id';
+import AthleteId from '~/athlete/domain/models/id';
 
 export class MongoosePlayers implements Players {
   constructor(
@@ -18,14 +21,28 @@ export class MongoosePlayers implements Players {
 
     if (!match) return err(NotFoundPlayer.withId(id.value));
 
+    const playerIdResult = PlayerId.fromString(match._id);
+    if (playerIdResult.isErr()) return err(NotFoundPlayer.withId(id.value));
+
+    const userIdResult = UserId.fromString(match.userId);
+    if (userIdResult.isErr()) return err(NotFoundPlayer.withId(id.value));
+
+    const gameIdResult = GameId.fromString(match.gameId);
+    if (gameIdResult.isErr()) return err(NotFoundPlayer.withId(id.value));
+
+    const athletesIds = match.athletesIds
+      .map(id => AthleteId.fromString(id))
+      .filter(result => result.isOk())
+      .map(result => result.value);
+
     return ok(
-        Player.create({
-            id: PlayerId.fromString(match._id).value,
-            userId: match.userId,
-            gameId: match.gameId,
-            cash: match.cash,
-            athletesIds: match.athletesIds.map(id => AthleteId.fromString(id).value),
-        }),
+      Player.create({
+        id: playerIdResult.value,
+        userId: userIdResult.value,
+        gameId: gameIdResult.value,
+        cash: match.cash,
+        athletesIds,
+      }),
     );
   }
 

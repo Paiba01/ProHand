@@ -23,8 +23,10 @@ class Player {
     this._athletesIds = []
   }
 
-  static create({ id, userId, gameId, cash }: { id: PlayerId; userId: UserId; gameId: GameId; cash: number }) {
-    return new this(id, userId, gameId, cash)
+  static create({ id, userId, gameId, cash,  athletesIds = [] }: { id: PlayerId; userId: UserId; gameId: GameId; cash: number; athletesIds?: AthleteId[];}) {
+    const player = new this(id, userId, gameId, cash);
+    player._athletesIds = athletesIds;
+    return player;
   }
 
   get id(): PlayerId {
